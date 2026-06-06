@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiranth Travels – Seoul & Busan, South Korea</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14142b;
+    --red: #bf2b2b;
+    --gold: #c9922a;
+    --blue-dark: #1a3a6b;
+    --bg: #f7f4ef;
+    --white: #ffffff;
+    --line: #ddd8cf;
+    --muted: #6b6460;
+    --surface: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+ 
+  /* === HERO === */
+  .hero {
+    background: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,26,0.7) 0%, rgba(26,26,58,0.75) 40%, rgba(42,26,26,0.85) 100%);
+    z-index: 1;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/4d/14/63/gyeongbokgung-palace.jpg?w=1200&h=-1&s=1');
+    background-size: cover;
+    background-position: center 30%;
+    z-index: 0;
+  }
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(90deg, white 0, white 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(0deg, white 0, white 1px, transparent 1px, transparent 60px);
+  }
+  .hero-korean {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 280px;
+    color: rgba(255,255,255,0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 60px 80px;
+    max-width: 900px;
+  }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 88px);
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: #e8c87a;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .hero-meta span {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-meta strong { color: rgba(255,255,255,0.85); }
+  .hero-intro {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    max-width: 580px;
+    line-height: 1.7;
+    border-left: 3px solid var(--gold);
+    padding-left: 20px;
+  }
+ 
+  /* === NAV STRIP === */
+  .nav-strip {
+    background: var(--ink);
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-strip a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 22px;
+    white-space: nowrap;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-strip a:hover { color: white; border-bottom-color: var(--gold); }
+ 
+  /* === LAYOUT === */
+  .content-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-divider {
+    width: 48px;
+    height: 3px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+  p { font-size: 15.5px; line-height: 1.8; color: #333; margin-bottom: 16px; }
+ 
+  /* === INTRO SECTION === */
+  .intro-section {
+    background: white;
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .intro-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+ 
+  /* === CULTURE SECTION === */
+  .culture-section {
+    background: var(--bg);
+    padding: 80px 0;
+  }
+  .culture-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .tile {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .tile-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tile-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .tile h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .tile-body {
+    padding: 16px 24px 24px;
+  }
+  .tile-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tile-body li {
+    font-size: 14px;
+    color: #444;
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+  .tile-body li:last-child { border-bottom: none; }
+  .tile-body li .tag {
+    font-size: 11px;
+    background: #f0ebe3;
+    color: var(--muted);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+ 
+  /* === FOOD SECTION === */
+  .food-section {
+    background: var(--ink);
+    padding: 80px 0;
+  }
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .food-card {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 24px 26px;
+    color: white;
+    transition: border-color 0.2s;
+  }
+  .food-card:hover { border-color: rgba(255,255,255,0.3); }
+  .food-card .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #e8c87a;
+    margin-bottom: 4px;
+  }
+  .food-card .dish-korean {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .food-card p {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    margin: 0;
+  }
+ 
+  /* === CURRENCY SECTION === */
+  .currency-section {
+    background: white;
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .currency-display {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .currency-card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+  }
+  .currency-card .amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--ink);
+    font-weight: 700;
+    display: block;
+  }
+  .currency-card .label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .currency-card .equals {
+    font-size: 13px;
+    color: var(--red);
+    margin: 6px 0;
+  }
+ 
+  /* === PLACES SECTION === */
+  .places-section {
+    background: var(--bg);
+    padding: 80px 0;
+  }
+  .places-list {
+    margin-top: 40px;
+    display: grid;
+    gap: 16px;
+  }
+  .place-row {
+    background: white;
+    border-radius: 10px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    border: 1px solid var(--line);
+  }
+  .place-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--line);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .place-info h4 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .place-info p {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .place-city {
+    font-size: 11px;
+    background: var(--ink);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+ 
+  /* === WHY SECTION === */
+  .why-section {
+    background: #14142b;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-section::before {
+    content: '한국';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 320px;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+  .why-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .why-section .section-label { color: var(--gold); }
+  .why-section .section-title { color: white; }
+  .why-section .section-divider { background: var(--gold); }
+  .why-section p { color: rgba(255,255,255,0.7); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 40px;
+    align-items: start;
+  }
+  .why-pull {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #e8c87a;
+    line-height: 1.4;
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 24px;
+    margin-top: 20px;
+  }
+ 
+  /* === LOGISTICS SECTION === */
+  .logistics-section {
+    background: white;
+    padding: 80px 0;
+  }
+  .logistics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .logistics-card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 28px;
+  }
+  .logistics-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logistics-card h3 .icon { font-size: 20px; }
+  .logistics-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .logistics-card tr:not(:last-child) td {
+    border-bottom: 1px dashed var(--line);
+  }
+  .logistics-card td {
+    padding: 8px 0;
+    color: #444;
+  }
+  .logistics-card td:last-child {
+    text-align: right;
+    font-weight: 500;
+    color: var(--ink);
+  }
+ 
+  /* === FOOTER === */
+  .blog-footer {
+    background: var(--ink);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .blog-footer .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .blog-footer p {
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+ 
+  @media (max-width: 768px) {
+    .intro-grid, .why-grid, .logistics-grid { grid-template-columns: 1fr; }
+    .culture-tiles { grid-template-columns: 1fr; }
+    .food-grid { grid-template-columns: 1fr; }
+    .currency-display { grid-template-columns: 1fr 1fr; }
+    .hero-content { padding: 40px 24px 60px; }
+    .content-wrap { padding: 60px 24px; }
+    .place-row { grid-template-columns: 50px 1fr; }
+    .place-city { display: none; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-photo"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-korean">한국</div>
+  <div class="hero-content">
+    <div class="hero-tag">✈ Hiranth Travels · Dream Destination Series</div>
+    <h1>South Korea:<br><em>Where Ancient<br>Meets Electric</em></h1>
+    <div class="hero-meta">
+      <span>📍 <strong>Seoul &amp; Busan</strong></span>
+      <span>📅 <strong>July 10 – 16</strong></span>
+      <span>🌏 <strong>East Asia</strong></span>
+      <span>🧳 <strong>Niche Tourism</strong></span>
+    </div>
+    <p class="hero-intro">Seven days immersed in one of the world's most fascinating contrasts — where thousand-year-old palaces stand beside glowing K-pop screens, and every meal is an adventure.</p>
+  </div>
+</section>
+ 
+<!-- NAV -->
+<nav class="nav-strip">
+  <a href="#overview">Overview</a>
+  <a href="#culture">Culture</a>
+  <a href="#food">Food</a>
+  <a href="#currency">Currency</a>
+  <a href="#places">Places</a>
+  <a href="#why">Why Korea</a>
+  <a href="#logistics">Logistics</a>
+</nav>
+ 
+<!-- INTRO / OVERVIEW -->
+<section id="overview" class="intro-section">
+  <div class="intro-grid">
+    <div>
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">A Nation Unlike<br>Any Other</h2>
+      <div class="section-divider"></div>
+      <p>South Korea sits in East Asia, sharing the Korean Peninsula with North Korea to its north and bordered by the Yellow Sea to the west and the Sea of Japan to the east. It is home to over 51 million people, with roughly half living in the greater Seoul metropolitan area — one of the largest urban zones on Earth.</p>
+      <p>What makes South Korea extraordinary is the scale of its transformation. Within a single generation, the country rose from one of the world's poorest nations to a global powerhouse of technology, entertainment, and design. Today it's home to Samsung, Hyundai, BTS, and Parasite — globally recognized names spanning hardware, music, and film.</p>
+      <p>Yet beneath this modern surface lies an ancient, deeply preserved culture. Confucian traditions, Buddhist temples, and centuries-old architecture are not relegated to museums — they are woven into daily Korean life. That tension between old and new is exactly what makes it so compelling to experience as a traveller.</p>
+      <div style="margin-top:24px; border-radius:10px; overflow:hidden; height:220px;">
+        <img src="https://www.seoulpass.com/wp-content/uploads/2023/12/N-Seoul-Tower-Night-Walk.jpg" alt="N Seoul Tower at night" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-top:8px; margin-bottom:0; text-align:right;">N Seoul Tower glowing over the city at night</p>
+    </div>
+    <div>
+      <div style="background:#f0ebe3; border-radius:10px; padding:32px; margin-bottom:20px;">
+        <div class="section-label" style="margin-bottom:16px;">Fast Facts</div>
+        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Capital</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">Seoul</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Population</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">51.7 million</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Language</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">Korean (한국어)</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Currency</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">South Korean Won (₩)</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Area</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">100,210 km²</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--line);">Government</td><td style="text-align:right; font-weight:500; border-bottom:1px dashed var(--line); padding:8px 0;">Presidential Republic</td></tr>
+          <tr><td style="color:var(--muted); padding:8px 0;">Best season to visit</td><td style="text-align:right; font-weight:500; padding:8px 0;">Spring or Autumn</td></tr>
+        </table>
+      </div>
+      <div style="background:var(--ink); border-radius:10px; padding:24px; color:white;">
+        <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:12px;">Useful Korean Phrases</div>
+        <div style="display:grid; gap:8px; font-size:14px;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.5);">Hello</span><span style="font-family:'Noto Serif KR',serif; color:#e8c87a;">안녕하세요</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.5);">Thank you</span><span style="font-family:'Noto Serif KR',serif; color:#e8c87a;">감사합니다</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.5);">Excuse me</span><span style="font-family:'Noto Serif KR',serif; color:#e8c87a;">실례합니다</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.5);">How much?</span><span style="font-family:'Noto Serif KR',serif; color:#e8c87a;">얼마예요?</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.5);">Delicious!</span><span style="font-family:'Noto Serif KR',serif; color:#e8c87a;">맛있어요!</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CULTURE SECTION -->
+<section id="culture" class="culture-section">
+  <div class="content-wrap">
+    <div class="section-label">Culture</div>
+    <h2 class="section-title">A Living Culture,<br>Ancient and Alive</h2>
+    <div class="section-divider"></div>
+    <p style="max-width:620px;">South Korea's culture is one of its greatest treasures — a blend of deep-rooted traditions and rapid modernization that offers travellers something truly layered. Whether you're watching a traditional performance or stumbling across the latest K-pop sensation, culture here is everywhere.</p>
+ 
+    <div class="culture-tiles">
+      <div class="tile">
+        <div class="tile-header">
+          <span class="tile-icon">👘</span>
+          <h3>Fashion &amp; Dress</h3>
+        </div>
+        <div class="tile-body">
+          <ul>
+            <li>Hanbok <span class="tag">Traditional</span></li>
+            <li>Vibrant silk fabrics <span class="tag">Ceremonial</span></li>
+            <li>Festival &amp; holiday wear <span class="tag">Seasonal</span></li>
+            <li>Seoul streetwear &amp; K-fashion <span class="tag">Modern</span></li>
+          </ul>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px; margin-bottom:0;">Visitors can rent hanbok near Gyeongbokgung Palace for an authentic cultural photo experience.</p>
+        </div>
+      </div>
+ 
+      <div class="tile">
+        <div class="tile-header">
+          <span class="tile-icon">💃</span>
+          <h3>Arts &amp; Performance</h3>
+        </div>
+        <div class="tile-body">
+          <ul>
+            <li>Buchaechum (fan dance) <span class="tag">Folk</span></li>
+            <li>Talchum (mask dance) <span class="tag">Folk</span></li>
+            <li>Samulnori percussion <span class="tag">Traditional</span></li>
+            <li>K-pop concerts &amp; music shows <span class="tag">Modern</span></li>
+          </ul>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px; margin-bottom:0;">Traditional performances are regularly staged at cultural centres and palace grounds in Seoul.</p>
+        </div>
+      </div>
+ 
+      <div class="tile">
+        <div class="tile-header">
+          <span class="tile-icon">🎮</span>
+          <h3>Popular Culture</h3>
+        </div>
+        <div class="tile-body">
+          <ul>
+            <li>K-pop (BTS, BLACKPINK, etc.) <span class="tag">Global</span></li>
+            <li>K-dramas (Netflix &amp; local) <span class="tag">TV</span></li>
+            <li>PC Bangs (gaming cafes) <span class="tag">Esports</span></li>
+            <li>Webtoons &amp; manhwa comics <span class="tag">Digital</span></li>
+          </ul>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px; margin-bottom:0;">The Hallyu ("Korean Wave") has turned Korean pop culture into one of the most influential forces on the planet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PHOTO GALLERY STRIP -->
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; height:280px; overflow:hidden;">
+  <div style="overflow:hidden; position:relative;">
+    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/4d/14/63/gyeongbokgung-palace.jpg?w=1200&h=-1&s=1" alt="Gyeongbokgung Palace" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent,rgba(0,0,0,0.7)); color:white; font-size:12px; letter-spacing:0.08em;">GYEONGBOKGUNG PALACE</div>
+  </div>
+  <div style="overflow:hidden; position:relative;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Myeongdong_Night_Market.jpg/1200px-Myeongdong_Night_Market.jpg" alt="Myeongdong Night Market" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent,rgba(0,0,0,0.7)); color:white; font-size:12px; letter-spacing:0.08em;">MYEONGDONG NIGHT MARKET</div>
+  </div>
+  <div style="overflow:hidden; position:relative;">
+    <img src="https://www.seoulpass.com/wp-content/uploads/2023/12/N-Seoul-Tower-Night-Walk.jpg" alt="Seoul Tower" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent,rgba(0,0,0,0.7)); color:white; font-size:12px; letter-spacing:0.08em;">N SEOUL TOWER</div>
+  </div>
+</div>
+ 
+<!-- FOOD SECTION -->
+<section id="food" class="food-section">
+  <div class="content-wrap">
+    <div class="section-label" style="color:var(--gold);">Cuisine</div>
+    <h2 class="section-title" style="color:white;">Eat Your Way Through Korea</h2>
+    <div class="section-divider" style="background:var(--gold);"></div>
+    <p style="color:rgba(255,255,255,0.65); max-width:600px;">Korean food is bold, communal, and deeply satisfying. It is built around sharing — a table full of <em style="color:#e8c87a;">banchan</em> (small side dishes) alongside a central dish is the Korean way. Here are the six essential dishes to seek out:</p>
+ 
+    <div class="food-grid">
+      <div class="food-card">
+        <div class="dish-name">Kimchi</div>
+        <span class="dish-korean">김치</span>
+        <p>Fermented vegetables — most often napa cabbage — seasoned with chili paste, garlic, and ginger. Served as a side dish at virtually every meal. A UNESCO Intangible Cultural Heritage since 2013.</p>
+      </div>
+      <div class="food-card">
+        <div class="dish-name">Korean BBQ</div>
+        <span class="dish-korean">한국식 바베큐</span>
+        <p>Grilled meats — bulgogi (beef), samgyeopsal (pork belly), and galbi (short ribs) — cooked right at your table over charcoal or gas. One of the most interactive and social dining experiences in the world.</p>
+      </div>
+      <div class="food-card">
+        <div class="dish-name">Bibimbap</div>
+        <span class="dish-korean">비빔밥</span>
+        <p>A vibrant mixed rice bowl topped with seasoned vegetables, a fried egg, gochujang (chili paste), and often beef or tofu. Mix everything together before eating — the name literally means "mixed rice."</p>
+      </div>
+      <div class="food-card">
+        <div class="dish-name">Tteokbokki</div>
+        <span class="dish-korean">떡볶이</span>
+        <p>Chewy cylindrical rice cakes simmered in a sweet and spicy gochujang sauce. Korea's most beloved street food — found at every pojangmacha (street stall) and night market across the country.</p>
+      </div>
+      <div class="food-card">
+        <div class="dish-name">Fried Chicken</div>
+        <span class="dish-korean">치킨</span>
+        <p>Double-fried for maximum crunch, then glazed with sauces ranging from sweet soy garlic to fiery yangnyeom. Often paired with draft beer in a combination so iconic, Koreans call it <em style="color:#e8c87a;">chimaek</em>.</p>
+      </div>
+      <div class="food-card">
+        <div class="dish-name">Japchae</div>
+        <span class="dish-korean">잡채</span>
+        <p>Stir-fried glass noodles made from sweet potato starch, tossed with a colourful mix of vegetables, mushrooms, and beef in a sesame-soy sauce. A staple of Korean celebrations and festive occasions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CURRENCY SECTION -->
+<section id="currency" class="currency-section">
+  <div class="content-wrap">
+    <div class="section-label">Currency &amp; Money</div>
+    <h2 class="section-title">South Korean Won (₩)</h2>
+    <div class="section-divider"></div>
+    <p style="max-width:600px;">South Korea's currency is the <strong>Korean Won (KRW)</strong>. The numbers look large but are easy to work with once you get used to them. Cards are accepted nearly everywhere in cities, but carry cash for street stalls and traditional markets.</p>
+ 
+    <div class="currency-display">
+      <div class="currency-card">
+        <span class="amount">$1</span>
+        <div class="label">Canadian Dollar</div>
+        <div class="equals">≈</div>
+        <span class="amount" style="font-size:24px; color:var(--red);">₩1,000</span>
+        <div class="label" style="color:var(--red);">Korean Won</div>
+      </div>
+      <div class="currency-card">
+        <span class="amount">$10</span>
+        <div class="label">CAD</div>
+        <div class="equals">≈</div>
+        <span class="amount" style="font-size:24px; color:var(--red);">₩10,000</span>
+        <div class="label" style="color:var(--red);">KRW</div>
+      </div>
+      <div class="currency-card">
+        <span class="amount">$50</span>
+        <div class="label">CAD</div>
+        <div class="equals">≈</div>
+        <span class="amount" style="font-size:24px; color:var(--red);">₩50,000</span>
+        <div class="label" style="color:var(--red);">KRW</div>
+      </div>
+      <div class="currency-card">
+        <span class="amount">$100</span>
+        <div class="label">CAD</div>
+        <div class="equals">≈</div>
+        <span class="amount" style="font-size:24px; color:var(--red);">₩100,000</span>
+        <div class="label" style="color:var(--red);">KRW</div>
+      </div>
+    </div>
+ 
+    <div style="margin-top:24px; background:var(--bg); border-radius:10px; padding:24px 28px; border-left:3px solid var(--gold);">
+      <strong style="font-size:14px;">💡 Money Tips for Korea:</strong>
+      <p style="font-size:14px; margin-top:8px; margin-bottom:0;">Get a <strong>T-Money card</strong> (tap-to-pay transit card) on arrival — it works on subways, buses, and even some convenience stores. Myeongdong street stalls and Namdaemun Market are cash-preferred. Most convenience stores (7-Eleven, CU, GS25) have ATMs that accept international cards.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- PLACES SECTION -->
+<section id="places" class="places-section">
+  <div class="content-wrap">
+    <div class="section-label">Must-See Places</div>
+    <h2 class="section-title">8 Places You<br>Cannot Miss</h2>
+    <div class="section-divider"></div>
+ 
+    <div class="places-list">
+      <div class="place-row">
+        <div class="place-num">01</div>
+        <div class="place-info">
+          <h4>Gyeongbokgung Palace</h4>
+          <p>Seoul's grand royal palace, founded in 1395 under the Joseon Dynasty. The guard-changing ceremony (hourly, 10am–3pm) is a living piece of history. Rent a hanbok nearby to enter free.</p>
+        </div>
+        <span class="place-city">Seoul</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">02</div>
+        <div class="place-info">
+          <h4>N Seoul Tower</h4>
+          <p>Perched atop Namsan Mountain at 479m above sea level, this iconic tower offers 360° panoramic views of the entire Seoul skyline. The cable car ride up is an experience in itself.</p>
+        </div>
+        <span class="place-city">Seoul</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">03</div>
+        <div class="place-info">
+          <h4>Bukchon Hanok Village</h4>
+          <p>A beautifully preserved hilltop neighbourhood of 600-year-old traditional Korean homes (hanok). Wander the narrow stone-paved alleys for a window into pre-modern Seoul.</p>
+        </div>
+        <span class="place-city">Seoul</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">04</div>
+        <div class="place-info">
+          <h4>Myeongdong Shopping Street</h4>
+          <p>Seoul's most vibrant commercial district — K-beauty brands, street food stalls, fashion boutiques, and neon lights in every direction. Buzzing at any hour, day or night.</p>
+        </div>
+        <span class="place-city">Seoul</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">05</div>
+        <div class="place-info">
+          <h4>Lotte World Adventure</h4>
+          <p>One of the world's largest indoor theme parks, combining thrilling rides with a Magic Island outdoor section beside Seokchon Lake. A full day of entertainment for all ages.</p>
+        </div>
+        <span class="place-city">Seoul</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">06</div>
+        <div class="place-info">
+          <h4>Gamcheon Culture Village</h4>
+          <p>Busan's "Santorini of Korea" — a hillside maze of colourful, artist-decorated homes and murals. Once a refugee settlement, now a thriving outdoor art museum and community space.</p>
+        </div>
+        <span class="place-city">Busan</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">07</div>
+        <div class="place-info">
+          <h4>Haedong Yonggungsa Temple</h4>
+          <p>One of Korea's most unusual temples — built directly on coastal cliffs above the East Sea. The sound of waves crashing on the rocks while the morning light hits the golden pagodas is unforgettable.</p>
+        </div>
+        <span class="place-city">Busan</span>
+      </div>
+      <div class="place-row">
+        <div class="place-num">08</div>
+        <div class="place-info">
+          <h4>Jagalchi Fish Market</h4>
+          <p>Korea's largest seafood market, stretching along Busan's harbour. Buy fresh catches directly from vendors and have them prepared on the spot. An essential, immersive local experience.</p>
+        </div>
+        <span class="place-city">Busan</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- WHY SOUTH KOREA -->
+<section id="why" class="why-section">
+  <div class="why-inner">
+    <div class="section-label">Why South Korea?</div>
+    <h2 class="section-title">More Than a Destination —<br>A Chance to Grow</h2>
+    <div class="section-divider"></div>
+ 
+    <div class="why-grid">
+      <div>
+        <p>South Korea checks every box for the kind of traveller I am. As a niche tourist, I'm not here to follow a pre-packaged tour or tick off the same Instagram spots as everyone else. I want something real: authentic local interactions, experiential learning, and the chance to understand a culture through living inside it, even briefly.</p>
+        <p>The contrast that Seoul represents draws me in deeply. You can stand in a centuries-old palace courtyard in the morning, watching the Joseon-era guard-changing ceremony, and be lost in a futuristic underground shopping mall by afternoon. That tension between old and new isn't just interesting to observe — it forces you to think about what culture actually means, and how identity persists through change.</p>
+        <p>The food alone would justify the trip. Korean cuisine is communal by design — it's impossible to eat Korean food and not connect with the people around you. That embodies my entire philosophy of travel: use food, use language, use experience to close the distance between yourself and the world.</p>
+      </div>
+      <div>
+        <p>On a deeper level, Korea's entertainment and youth culture — K-pop, K-dramas, the entire Hallyu wave — has already shaped how a generation of young people around the world see art and identity. To visit the source of that influence and understand it in its own context is something genuinely meaningful.</p>
+        <div class="why-pull">"South Korea isn't just a destination. It's a place where ancient wisdom and electric modernity coexist — and I want to stand in the middle of that."</div>
+        <p style="margin-top:20px; color:rgba(255,255,255,0.55);">As my code of ethics demands: travel with purpose, respect the culture, leave every place better than you found it. South Korea demands nothing less, and gives so much in return.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- LOGISTICS SECTION -->
+<section id="logistics" class="logistics-section">
+  <div class="content-wrap">
+    <div class="section-label">Trip Logistics</div>
+    <h2 class="section-title">Where to Stay &amp; How to Budget</h2>
+    <div class="section-divider"></div>
+ 
+    <div class="logistics-grid">
+      <div class="logistics-card">
+        <h3><span class="icon">✈️</span> Flight Details</h3>
+        <table>
+          <tr><td style="color:var(--muted);">Route</td><td>Toronto YYZ → Seoul ICN</td></tr>
+          <tr><td style="color:var(--muted);">Airline</td><td>Air Canada (direct)</td></tr>
+          <tr><td style="color:var(--muted);">Duration</td><td>~14 hours</td></tr>
+          <tr><td style="color:var(--muted);">Departure</td><td>July 10 (evening)</td></tr>
+          <tr><td style="color:var(--muted);">Return</td><td>July 16 (late evening)</td></tr>
+          <tr><td style="color:var(--muted); font-weight:600;">Est. cost (2 pax)</td><td style="color:var(--red); font-weight:600;">~$2,400 CAD</td></tr>
+        </table>
+      </div>
+      <div class="logistics-card">
+        <h3><span class="icon">🏠</span> Accommodation</h3>
+        <table>
+          <tr><td style="color:var(--muted);">Seoul (4 nights)</td><td>Twin Rabbit Guesthouse, Hongdae</td></tr>
+          <tr><td style="color:var(--muted);">Rate/night</td><td>$80 CAD (2 people)</td></tr>
+          <tr><td style="color:var(--muted);">Busan (2 nights)</td><td>Kimchee Haeundae Guesthouse</td></tr>
+          <tr><td style="color:var(--muted);">Rate/night</td><td>$70 CAD (2 people)</td></tr>
+          <tr><td style="color:var(--muted); font-weight:600;">Total accommodation</td><td style="color:var(--red); font-weight:600;">~$460 CAD</td></tr>
+        </table>
+      </div>
+      <div class="logistics-card">
+        <h3><span class="icon">🚄</span> Getting Around</h3>
+        <table>
+          <tr><td style="color:var(--muted);">Seoul subway</td><td>~$1.50 CAD/ride</td></tr>
+          <tr><td style="color:var(--muted);">Seoul to Busan KTX</td><td>$65 CAD/person</td></tr>
+          <tr><td style="color:var(--muted);">Busan to Seoul KTX</td><td>$65 CAD/person</td></tr>
+          <tr><td style="color:var(--muted);">Airport express AREX</td><td>$9 CAD/person</td></tr>
+          <tr><td style="color:var(--muted); font-weight:600;">Total transport est.</td><td style="color:var(--red); font-weight:600;">~$320 CAD</td></tr>
+        </table>
+      </div>
+      <div class="logistics-card">
+        <h3><span class="icon">💰</span> Overall Budget</h3>
+        <table>
+          <tr><td style="color:var(--muted);">Flights</td><td>$2,400</td></tr>
+          <tr><td style="color:var(--muted);">Accommodation</td><td>$460</td></tr>
+          <tr><td style="color:var(--muted);">Transport</td><td>$320</td></tr>
+          <tr><td style="color:var(--muted);">Food &amp; activities</td><td>$700</td></tr>
+          <tr><td style="color:var(--muted);">Souvenirs &amp; misc.</td><td>$100</td></tr>
+          <tr><td style="font-weight:600; font-size:15px;">Total (2 travellers)</td><td style="color:var(--red); font-weight:600; font-size:15px;">~$3,980 CAD</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer class="blog-footer">
+  <div class="footer-brand">Hiranth Travels</div>
+  <p>CGG3O1 · Travel &amp; Tourism · Final Culminating Assessment<br>Dream Destination: South Korea · July 2024</p>
+</footer>
+ 
+</body>
+</html>
